@@ -1,0 +1,1238 @@
+/* --- CSS Переменные для Цветовой Палитры (Вдохновлено Ван Гогом) --- */
+:root {
+    --van-gogh-dark-blue: #2A3A5B;   /* Глубокий синий, как звездная ночь */
+    --van-gogh-bright-yellow: #F7D35E; /* Яркий, насыщенный желтый (подсолнухи) */
+    --van-gogh-earth-green: #6B8E23;   /* Землистый зеленый */
+    --van-gogh-terracotta: #CD5B45;   /* Терракотовый/оранжевый */
+    --van-gogh-cream: #F8F4E3;       /* Теплый кремовый, фон холста */
+    --van-gogh-light-grey: #DEDEDE;  /* Очень светлый серый */
+    --van-gogh-dark-text: #4A4A4A;   /* Темно-серый для основного текста */
+}
+
+/* --- Общие Стили --- */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Pacifico', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--van-gogh-dark-text);
+    line-height: 1.6;
+    overflow-x: hidden; /* Предотвращает горизонтальный скролл */
+
+    /* !!! ГЛОБАЛЬНЫЙ ФОН ДЛЯ ВСЕГО САЙТА !!! */
+    background-image: url('../img/van_gogh_skyline.jpg'); /* Убедитесь, что путь к изображению верный */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Фиксированный фон при прокрутке */
+    
+    position: relative;
+    z-index: 0;
+}
+
+/* Стили для блокировки прокрутки страницы, когда модальное окно активно */
+body.no-scroll {
+ overflow: hidden !important;
+    /* Для iOS Safari: */
+    position: fixed;
+    width: 100%;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.1); /* Легкая полупрозрачная накладка */
+    z-index: -1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Dancing Script', cursive;
+    color: var(--van-gogh-dark-blue);
+    text-align: center;
+    margin-bottom: 20px;
+    /* --- УДАЛЕНО: Неоновая тень для заголовков --- */
+    /* text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6; */
+}
+
+h1 { font-size: 3.5em; }
+h2 { font-size: 2.8em; }
+h3 { font-size: 2.2em; }
+
+section {
+    padding: 60px 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.85); /* Сделал чуть менее прозрачным */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    max-width: 1200px; /* Ограничил ширину секций */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button {
+    background-color: var(--van-gogh-bright-yellow);
+    color: var(--van-gogh-dark-blue);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* --- УДАЛЕНО: Неоновая тень для кнопок --- */
+    /* box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6; */
+    letter-spacing: 0.5px;
+    /* Убедитесь, что текст кнопки хорошо виден */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+button:hover {
+    background-color: var(--van-gogh-terracotta);
+    color: white;
+    /* --- УДАЛЕНО: Усиленная неоновая тень при наведении --- */
+    /* box-shadow: 0 0 8px #fff, 0 0 15px #fff, 0 0 25px #0073e6, 0 0 40px #0073e6; */
+    transform: translateY(-2px);
+    text-shadow: none; /* Убираем, если не нужен */
+}
+
+/* --- Header / Навигация --- */
+header {
+    background-color: rgba(42, 58, 91, 0.7);
+    color: var(--van-gogh-bright-yellow);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+header.header-scrolled {
+    padding: 10px 20px;
+    background-color: rgba(42, 58, 91, 0.9);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.header-top-area {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    transition: all 0.3s ease;
+    flex-shrink: 1;
+}
+
+header.header-scrolled .header-top-area {
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+}
+
+header .agent-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+}
+
+header .agent-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--van-gogh-bright-yellow);
+    box-shadow: 0 0 0 5px rgba(247, 211, 94, 0.3);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+header.header-scrolled .agent-photo {
+    opacity: 0;
+    height: 0;
+    width: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+    min-height: 0;
+    border: none;
+    box-shadow: none;
+}
+
+
+header .agent-name {
+    font-family: 'Pacifico', cursive;
+    font-size: 2.5em;
+    font-weight: 400;
+    color: var(--van-gogh-bright-yellow);
+    line-height: 1;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+header .agent-title {
+    font-family: 'Pacifico', sans-serif;
+    font-size: 1em;
+    color: var(--van-gogh-cream);
+    margin-top: 5px;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+header.header-scrolled .agent-name,
+header.header-scrolled .agent-title {
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    line-height: 0;
+    font-size: 0;
+}
+
+
+header nav {
+    flex-grow: 1;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    transition: all 0.3s ease;
+}
+
+header.header-scrolled nav {
+    justify-content: center;
+}
+
+header nav a {
+    color: var(--van-gogh-cream);
+    text-decoration: none;
+    font-family: 'Pacifico', sans-serif;
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-left: 25px;
+    padding-bottom: 5px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+header nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--van-gogh-bright-yellow);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+header nav a:hover::after,
+header nav a.active::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+header nav a:hover {
+    color: var(--van-gogh-bright-yellow);
+}
+
+/* --- Блок "О агенте" --- */
+#about {
+    text-align: center;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+#about h2 {
+    font-family: 'Pacifico', cursive;
+    font-weight: 500;
+    font-size: 3em; /* Можно настроить размер */
+}
+
+#about .about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background-color: transparent;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: none;
+}
+
+#about .about-text p {
+    font-size: 1.1em;
+    color: var(--van-gogh-dark-text);
+    margin-bottom: 20px;
+}
+
+#about .about-agent-photo {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--van-gogh-bright-yellow);
+    box-shadow: 0 0 0 10px rgba(247, 211, 94, 0.2),
+                0 8px 15px rgba(0,0,0,0.2);
+}
+
+#about .advantages-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--van-gogh-light-grey);
+}
+
+#about .advantages-list li {
+    background-color: var(--van-gogh-cream);
+    padding: 15px 25px;
+    border-radius: 30px;
+    font-size: 1.05em;
+    color: var(--van-gogh-dark-blue);
+    font-weight: 600;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    /* Удаляем или комментируем transition, так как он не нужен без эффектов наведения/нажатия */
+    /* transition: transform 0.2s ease, background-color 0.2s ease; */
+    cursor: default; /* Оставляем cursor: default, чтобы курсор не менялся на указатель */
+    border: 1px solid var(--van-gogh-light-grey);
+}
+
+
+/* --- Стилизация шрифтов --- */
+
+/* Open Sans - основной шрифт для всего текста по умолчанию */
+body {
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    background-color: var(--light-bg-color);
+    scroll-behavior: smooth;
+}
+
+/* Заголовки H1, H2, H3, H4, H5, H6 по умолчанию будут Open Sans */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Open Sans', sans-serif; /* По умолчанию для всех заголовков */
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--van-gogh-dark-blue);
+    font-weight: 600; /* Обычно заголовки Open Sans выглядят хорошо с полужирным */
+}
+
+/* Применяем Pacifico к конкретным элементам: */
+
+/* Имя агента в хедере */
+.agent-name {
+    font-family: 'Pacifico', cursive; /* Pacifico для имени агента */
+    font-size: 2.5em; /* Подходящий размер для имени агента */
+    margin-bottom: 5px;
+    color: var(--van-gogh-dark-blue);
+    font-weight: 400; /* Pacifico обычно имеет только 400 */
+}
+
+/* Заголовок секции "Обо мне" */
+#about h2 {
+    font-family: 'Pacifico', cursive;
+    font-weight: 400;
+    font-size: 2.2em; /* Можно настроить размер */
+}
+
+/* --- ИСПРАВЛЕННЫЕ СТИЛИ ДЛЯ НОВОСТРОЙКИ И ВТОРИЧКИ --- */
+/* Обратите внимание: изменено с #new-buildings на #new-developments */
+#new-developments h2 { /* <-- ИЗМЕНЕНО */
+    font-family: 'Pacifico', cursive;
+    font-weight: 400;
+    font-size: 2.2em; /* Можно настроить размер */
+    /* Убедитесь, что здесь нет конфликтующих стилей, таких как margin-bottom */
+    /* Если вам нужно, чтобы margin-bottom был 40px, добавьте его сюда: */
+    margin-bottom: 40px;
+}
+
+#resale-properties h2 {
+    font-family: 'Pacifico', cursive; /* <-- ДОБАВЛЕНО */
+    font-weight: 400; /* <-- ДОБАВЛЕНО */
+    font-size: 2.2em; /* Можно настроить размер */ /* <-- ДОБАВЛЕНО */
+    color: var(--van-gogh-dark-blue);
+    margin-bottom: 40px;
+}
+
+/* Для остальных текстовых элементов, которые не имеют специфического класса или тега */
+p, ul, li, span, button, input, textarea, select,
+.agent-title, .nav-link, .price, .modal-total-price, .contact-object-btn {
+    font-family: 'Pacifico', sans-serif;
+    color: var(--text-color); /* По умолчанию черный, можно переопределить */
+}
+
+/* ... остальной ваш CSS код ... */
+/* --- Стили для карточек недвижимости в галерее --- */
+.property-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+    border: 2px solid var(--van-gogh-light-grey);
+}
+
+.property-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    border-color: var(--van-gogh-bright-yellow);
+}
+
+.property-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 3px solid var(--van-gogh-terracotta);
+    margin-bottom: 15px;
+}
+
+.property-card h3 {
+    font-family: 'Pacifico', sans-serif;
+    font-size: 1.5em;
+    color: var(--van-gogh-dark-blue);
+    margin-bottom: 5px;
+    text-shadow: none; /* Убираем неоновую тень отсюда, т.к. она есть в общем h3 */
+}
+
+.property-card p {
+    font-family: 'Pacifico', sans-serif;
+    font-size: 1em;
+    color: var(--van-gogh-dark-text);
+    margin-bottom: 5px;
+}
+
+.property-card p.price {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: var(--van-gogh-terracotta);
+    margin-top: 15px;
+}
+
+.property-card button {
+    margin-top: 20px;
+    width: 80%;
+    font-size: 1.05em;
+    padding: 10px 20px;
+}
+
+/* --- Стилизация Swiper.js/Carousel --- */
+.swiper-container {
+    width: 100%;
+    padding-bottom: 50px; /* Увеличил, чтобы пагинация не прилипала */
+    padding-top: 10px;
+    position: relative; /* Важно для позиционирования пагинации */
+    overflow: hidden;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* --- ИЗМЕНЕНО: СКРЫВАЕМ СТРЕЛКИ ДЛЯ ОБЫЧНЫХ КАРУСЕЛЕЙ (Новостройки, Вторичка) --- */
+/* Эти правила полностью скрывают кнопки навигации по умолчанию */
+.swiper-container .swiper-button-next, /* Более специфичный селектор */
+.swiper-container .swiper-button-prev { /* Более специфичный селектор */
+    display: none !important;
+}
+
+
+/* --- ИЗМЕНЕНО: Стилизация Swiper Pagination (точки) для ОБЫЧНЫХ каруселей (по центру под слайдами) --- */
+/* Более специфичные селекторы для пагинации в секциях */
+#new-developments .swiper-pagination,
+#resale-properties .swiper-pagination {
+    position: absolute !important; /* Гарантируем абсолютное позиционирование */
+    bottom: 15px !important; /* Скорректировал отступ от низа swiper-container */
+    left: 50% !important;
+    transform: translateX(-50%) !important; /* Гарантируем центрирование */
+    width: auto !important; /* Ширина по контенту */
+    margin-top: 0 !important;
+    text-align: center !important;
+    padding: 0 !important; /* Убираем любой внутренний отступ */
+}
+
+.swiper-pagination-bullet {
+    background: var(--van-gogh-dark-blue) !important;
+    opacity: 0.5 !important;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+    background: var(--van-gogh-bright-yellow) !important;
+    opacity: 1 !important;
+    transform: scale(1.2);
+}
+
+/* --- Модальное Окно ОБЪЕКТА --- */
+.modal {
+    display: none; /* Скрыто по умолчанию */
+    position: fixed;
+    z-index: 1001; /* Выше обычного контента, но ниже fullscreen модального окна */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Позволяет прокручивать модальное окно, если контент не помещается */
+    
+    /* Фон модального окна, соответствующий фону сайта */
+    background-image: url('../img/van_gogh_skyline.jpg'); /* Используем тот же фон */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Фиксированный фон */
+    
+    background-color: rgba(42, 58, 91, 0.9); /* Дополнительный прозрачный слой */
+    backdrop-filter: blur(8px); /* Сильное размытие фона */
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none; /* Чтобы не мешать кликам, когда скрыто */
+    transition: opacity 0.4s ease-out; /* Анимация появления/исчезновения фона */
+}
+
+.modal.show {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto; /* Разрешаем клики, когда показано */
+}
+
+/* Анимация контента модального окна */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow-y: auto;
+    max-height: 90vh; /* Ограничиваем высоту модального окна */
+    transform: translateY(-30px); /* Начальное положение для анимации */
+    opacity: 0; /* Начальная прозрачность */
+    animation: fadeInContent 0.4s ease-out forwards;
+}
+
+.modal.show .modal-content {
+    animation: slideInContent 0.4s ease-out forwards;
+}
+
+@keyframes slideInContent {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOutContent {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-30px); }
+}
+
+/* Для плавного закрытия (если понадобится, можно добавить класс для закрытия) */
+.modal.hiding .modal-content {
+    animation: fadeOutContent 0.3s ease-out forwards;
+}
+
+
+.close-button {
+    color: var(--van-gogh-dark-blue);
+    font-size: 3em;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
+    z-index: 10; /* Убедимся, что кнопка закрытия поверх всего */
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--van-gogh-terracotta);
+    transform: rotate(90deg); /* Анимация вращения при наведении */
+}
+
+#modalTitle {
+    font-family: 'Dancing Script', cursive;
+    color: var(--van-gogh-dark-blue);
+    font-size: 2.5em;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.modal-image-gallery {
+    width: 100%;
+    position: relative; /* Важно для позиционирования пагинации */
+    height: 400px; /* Увеличил высоту для больших фото */
+    margin-bottom: 25px;
+    background-color: var(--van-gogh-cream);
+    border-radius: 8px;
+    overflow: hidden; /* Чтобы изображение не выходило за границы */
+}
+
+.modal-image-gallery .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+.modal-image-gallery .swiper-slide img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Сохраняет пропорции, помещая изображение целиком */
+    border-radius: 8px;
+    border: 1px solid var(--van-gogh-light-grey);
+    cursor: zoom-in; /* Курсор при наведении на изображение */
+}
+
+/* --- ИЗМЕНЕНО: СКРЫВАЕМ СТРЕЛКИ В МОДАЛЬНОМ ОКНЕ --- */
+.modal-image-gallery .swiper-button-next,
+.modal-image-gallery .swiper-button-prev {
+    display: none !important; /* Полностью скрываем стрелки */
+}
+
+/* --- ИЗМЕНЕНО: Позиционирование пагинации в модальном окне (под слайдами и по центру) --- */
+/* Более специфичный селектор для пагинации в модальной галерее */
+.modal-image-gallery .swiper-pagination {
+    position: absolute !important; /* Гарантируем абсолютное позиционирование */
+    bottom: 0px !important; /* Прижимаем к низу контейнера галереи */
+    left: 50% !important;
+    transform: translateX(-50%) !important; /* Гарантируем центрирование */
+    width: auto !important; /* Ширина по контенту */
+    margin-top: 0 !important;
+    text-align: center !important;
+    z-index: 10 !important; /* Точки поверх всего */
+    padding-top: 10px !important; /* Отступ, чтобы точки не накладывались на нижний край изображений */
+}
+
+.modal-image-gallery .swiper-pagination-bullet {
+    background: var(--van-gogh-dark-blue) !important; /* Цвет точек пагинации */
+    opacity: 0.5 !important;
+}
+
+.modal-image-gallery .swiper-pagination-bullet-active {
+    background: var(--van-gogh-bright-yellow) !important; /* Активный цвет точек пагинации */
+    opacity: 1 !important;
+}
+
+
+#modalDescription {
+    font-family: 'Pacifico', sans-serif;
+    font-size: 1.1em;
+    color: var(--van-gogh-dark-text);
+    margin-bottom: 20px;
+    text-align: left;
+    padding: 0 10px;
+}
+
+#modalDetails {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+    text-align: left;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 10px 20px;
+    padding: 0 10px;
+}
+
+#modalDetails li {
+    font-family: 'Pacifico', sans-serif;
+    font-size: 1em;
+    color: var(--van-gogh-dark-text);
+    position: relative;
+    padding-left: 20px;
+    background-color: var(--van-gogh-cream);
+    padding: 8px 15px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+#modalDetails li::before {
+    content: '•';
+    color: var(--van-gogh-earth-green);
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    font-size: 1.2em;
+    line-height: 1;
+}
+
+.modal-total-price {
+    font-family: 'Pacifico', sans-serif;
+    font-size: 1.8em;
+    color: var(--van-gogh-terracotta);
+    font-weight: bold;
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    background-color: rgba(247, 211, 94, 0.2);
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-object-btn {
+    display: block;
+    width: 80%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 15px 30px;
+    font-size: 1.1em;
+}
+
+/* --- Полноэкранное модальное окно для изображений --- */
+#fullscreenImageModal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95); /* Почти черный фон для лучшего просмотра фото */
+    z-index: 2000; /* Выше обычного модального окна */
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-out;
+}
+
+#fullscreenImageModal.show {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.fullscreen-close-button {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 4em; /* Увеличил размер */
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2001; /* Поверх Swiper-а */
+    transition: color 0.3s ease, transform 0.2s ease;
+    /* --- УДАЛЕНО: Неоновая тень для кнопки закрытия fullscreen --- */
+    /* text-shadow: 0 0 10px rgba(255,255,255,0.5); */
+}
+
+.fullscreen-close-button:hover {
+    color: var(--van-gogh-terracotta);
+    transform: rotate(90deg);
+}
+
+.fullscreen-swiper-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Добавлено для позиционирования пагинации */
+}
+
+.fullscreen-swiper-container .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fullscreen-swiper-container .swiper-slide img {
+    max-width: 95%; /* Увеличиваем размер изображения */
+    max-height: 95%; /* Увеличиваем размер изображения */
+    object-fit: contain; /* Сохраняем пропорции */
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Тень для фото */
+}
+
+/* --- ИЗМЕНЕНО: СКРЫВАЕМ СТРЕЛКИ В ПОЛНОЭКРАННОМ РЕЖИМЕ --- */
+.fullscreen-swiper-container .swiper-button-next,
+.fullscreen-swiper-container .swiper-button-prev {
+    display: none !important; /* Полностью скрываем стрелки в полноэкранном режиме */
+}
+
+/* --- ИЗМЕНЕНО: Пагинация в полноэкранном режиме (фиксированное положение снизу по центру) --- */
+#fullscreenImageModal .swiper-pagination { /* Используем ID для большей специфичности */
+    position: absolute !important;
+    bottom: 20px !important; /* Отступ от низа экрана */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: auto !important; /* Ширина по контенту */
+    margin-top: 0 !important;
+    text-align: center !important;
+    z-index: 10 !important; /* Точки поверх всего */
+}
+#fullscreenImageModal .swiper-pagination-bullet { /* Цвет точек в полноэкранном режиме */
+    background: rgba(255, 255, 255, 0.6) !important;
+}
+#fullscreenImageModal .swiper-pagination-bullet-active {
+    background: white !important; /* Белые активные точки в полноэкранном режиме */
+}
+
+
+/* --- Блок "Контактная информация" --- */
+#contact {
+    background-color: rgba(42, 58, 91, 0.7);
+    color: var(--van-gogh-cream);
+    text-align: center;
+    padding-bottom: 80px;
+}
+
+#contact h2 {
+    color: var(--van-gogh-bright-yellow);
+    margin-bottom: 40px;
+}
+
+#contact p {
+    font-size: 1.1em;
+    margin-bottom: 50px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- Ссылки на контакты / соцсети --- */
+.social-contacts {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.social-contacts a {
+    color: var(--van-gogh-bright-yellow);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.2);
+    /* --- УДАЛЕНО: Неоновая тень к иконкам социальных сетей --- */
+    /* box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6; */
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    padding: 10px;
+}
+
+.social-contacts a:hover {
+    transform: translateY(-8px) scale(1.05);
+    color: white;
+    background-color: var(--van-gogh-terracotta);
+    /* --- УДАЛЕНО: Усиленная неоновая тень при наведении --- */
+    /* box-shadow: 0 0 8px #fff, 0 0 15px #fff, 0 0 25px #0073e6, 0 0 40px #0073e6; */
+}
+
+.social-contacts a i {
+    font-size: 3.5em;
+    margin-bottom: 8px;
+}
+
+.social-contacts a span {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--van-gogh-cream);
+    white-space: nowrap;
+    transition: color 0.3s ease;
+}
+
+.social-contacts a:hover span {
+    color: white;
+}
+
+/* --- Footer --- */
+footer {
+    background-color: var(--van-gogh-dark-blue);
+    color: var(--van-gogh-cream);
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 0.9em;
+    border-top: 5px solid var(--van-gogh-bright-yellow);
+}
+
+footer p {
+    margin: 0 0 10px 0;
+}
+
+footer a {
+    color: var(--van-gogh-bright-yellow);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* --- Адаптивность (Mobile Responsiveness) --- */
+
+/* Настройки для экранов шириной до 1024px (большие планшеты, небольшие ноутбуки) */
+@media (max-width: 1024px) {
+    header {
+        padding: 15px 25px;
+    }
+    header .agent-name {
+        font-size: 2em;
+    }
+    header .agent-title {
+        font-size: 0.95em;
+    }
+    header nav a {
+        margin-left: 18px;
+        font-size: 1em;
+    }
+    h1 { font-size: 3em; }
+    h2 { font-size: 2.5em; }
+    h3 { font-size: 2em; }
+    section {
+        padding: 50px 18px;
+        margin-bottom: 25px;
+    }
+    .property-card img {
+        height: 200px;
+    }
+    .modal-content {
+        max-width: 700px;
+    }
+    #modalDetails {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    .modal-image-gallery {
+        height: 350px;
+    }
+}
+
+/* Настройки для экранов шириной до 768px (планшеты в портретной ориентации, крупные смартфоны) */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 15px 20px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .header-top-area {
+        flex-direction: column;
+        margin-bottom: 15px;
+        width: 100%;
+        order: 1;
+    }
+
+    header.header-scrolled .header-top-area {
+        height: 0;
+        opacity: 0;
+        margin-bottom: 0;
+        min-height: 0;
+    }
+
+    header .agent-info {
+        flex-direction: column;
+        gap: 5px;
+        margin-bottom: 10px;
+    }
+
+    header .agent-photo {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 5px;
+    }
+    header .agent-name {
+        font-size: 2.2em;
+    }
+    header .agent-title {
+        font-size: 1em;
+    }
+
+    header nav {
+        width: 100%;
+        margin-top: 0;
+        justify-content: center;
+        order: 2;
+    }
+    header nav a {
+        margin: 0 8px;
+        font-size: 0.95em;
+        padding-bottom: 3px;
+    }
+    
+    h1 { font-size: 2.5em; }
+    h2 { font-size: 2em; }
+    h3 { font-size: 1.8em; }
+    section {
+        padding: 40px 15px;
+        margin-bottom: 20px;
+    }
+
+    /* Обо мне секция */
+    #about .about-agent-photo {
+        width: 180px;
+        height: 180px;
+        margin-bottom: 15px;
+    }
+    #about .about-text {
+        padding: 0 10px;
+    }
+    #about .about-text p {
+        font-size: 1em;
+        margin-bottom: 10px;
+    }
+    #about .about-content {
+        gap: 15px;
+    }
+    #about .advantages-list {
+        gap: 10px;
+        padding: 15px;
+    }
+    #about .advantages-list li {
+        font-size: 0.95em;
+        padding: 10px 18px;
+        width: 95%;
+        max-width: 350px;
+    }
+
+    .property-card {
+        margin: 0 auto;
+        max-width: 300px;
+    }
+    .property-card img {
+        height: 180px;
+    }
+    .property-card h3 {
+        font-size: 1.3em;
+    }
+    .property-card p {
+        font-size: 0.95em;
+    }
+    .property-card p.price {
+        font-size: 1.1em;
+    }
+    .swiper-button-next,
+    .swiper-button-prev {
+        font-size: 2em;
+        width: 40px;
+        height: 40px;
+    }
+
+    .modal-content {
+        padding: 20px;
+        width: 95%;
+        max-width: 600px;
+    }
+    #modalTitle {
+        font-size: 2em;
+    }
+    .modal-image-gallery {
+        height: 250px;
+    }
+    #modalDescription, #modalDetails li {
+        font-size: 0.95em;
+    }
+    #modalPrice {
+        font-size: 1.5em;
+    }
+    .contact-object-btn {
+        width: 90%;
+        padding: 12px 25px;
+    }
+    #modalDetails {
+        grid-template-columns: 1fr; /* Одна колонка на мобильных */
+    }
+
+    #contact p {
+        margin-bottom: 40px;
+    }
+
+    .social-contacts {
+        gap: 20px;
+    }
+    .social-contacts a {
+        width: 90px;
+        height: 90px;
+    }
+    .social-contacts a i {
+        font-size: 3em;
+        margin-bottom: 5px;
+    }
+    .social-contacts a span {
+        font-size: 0.85em;
+    }
+}
+
+/* Настройки для экранов шириной до 480px (большинство смартфонов) */
+@media (max-width: 480px) {
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.8em; }
+    section { padding: 30px 10px; }
+    button { padding: 10px 20px; font-size: 0.9em; }
+
+    header .agent-photo {
+        width: 90px;
+        height: 90px;
+    }
+    header .agent-name {
+        font-size: 2em;
+    }
+    header .agent-title {
+        font-size: 0.9em;
+    }
+    header nav a {
+        margin: 0 5px;
+        font-size: 0.85em;
+        padding-bottom: 3px;
+    }
+    
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.8em; }
+    section { padding: 30px 10px; }
+    button { padding: 10px 20px; font-size: 0.9em; }
+
+    header .agent-photo {
+        width: 90px;
+        height: 90px;
+    }
+    header .agent-name {
+        font-size: 2em;
+    }
+    header .agent-title {
+        font-size: 0.9em;
+    }
+    header nav a {
+        margin: 0 5px;
+        font-size: 0.85em;
+        padding-bottom: 3px;
+    }
+
+    /* Обо мне секция */
+    #about .about-agent-photo {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 10px;
+    }
+    #about .about-text {
+        padding: 0 5px;
+    }
+    #about .about-text p {
+        font-size: 0.9em;
+        margin-bottom: 8px;
+    }
+    #about .about-content {
+        gap: 10px;
+        padding: 20px;
+    }
+    #about .advantages-list {
+        gap: 8px;
+        padding: 10px;
+    }
+    #about .advantages-list li {
+        font-size: 0.95em;
+        padding: 10px 18px;
+        width: 95%;
+        max-width: 350px;
+    }
+
+    .property-card img {
+        height: 150px;
+    }
+    .property-card h3 {
+        font-size: 1.1em;
+    }
+    .property-card p {
+        font-size: 0.85em;
+    }
+    .property-card p.price {
+        font-size: 0.95em;
+    }
+    /* --- ИЗМЕНЕНО: Стрелки скрыты на очень маленьких экранах (для обычных каруселей) --- */
+    .swiper-button-next,
+    .swiper-button-prev {
+        display: none; /* Скрываем кнопки навигации на очень маленьких экранах */
+    }
+
+    .modal-content {
+        padding: 15px;
+    }
+    .close-button {
+        font-size: 2.5em;
+        right: 15px;
+    }
+    #modalTitle {
+        font-size: 1.8em;
+    }
+    .modal-image-gallery {
+        height: 180px;
+    }
+    #modalDescription, #modalDetails li {
+        font-size: 0.85em;
+    }
+    #modalPrice {
+        font-size: 1.3em;
+    }
+
+    #contact p {
+        margin-bottom: 30px;
+    }
+
+    .social-contacts {
+        gap: 15px;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 0 10px;
+    }
+    .social-contacts a {
+        width: 75px;
+        height: 75px;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+    .social-contacts a i {
+        font-size: 3em;
+        margin-bottom: 5px;
+    }
+}

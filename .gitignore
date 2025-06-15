@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+*/sitecustomize.py
+*.egg-info/
+.coverage
+.pytest_cache/
+.tox/
+
+# Django-специфичные файлы
+*.log
+*.sqlite3
+media/ # Если у вас есть папка media, которая содержит загруженные пользователем файлы (обычно не хранится в Git)
+static/ # Если вы используете collectstatic, и эта папка содержит сгенерированные файлы, которые не должны быть в Git
+db.sqlite3 # Файл базы данных SQLite
+
+# Конфиденциальные файлы (очень важно!)
+*.env
+.env
+local_settings.py # Если вы используете отдельный файл для локальных настроек
+settings_local.py # Другое распространенное имя для локальных настроек
+secrets.py # Если у вас есть файл с секретами
+config.ini
+
+# Среда разработки IDE/Редакторы
+.idea/             # PyCharm/IntelliJ IDEA
+.vscode/           # VS Code
+*.sublime-project
+*.sublime-workspace
+.DS_Store          # macOS
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.history/          # VS Code Local History

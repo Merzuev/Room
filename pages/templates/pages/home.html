@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hadidja - Агент по недвижимости</title>
+    {% load static %}
+    {% load humanize %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'js/main.js' %}">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-top-area">
+            <div class="agent-info">
+                <img src="{% static 'img/agent_photo.jpg' %}" alt="Фото агента Усмана Халилова" class="agent-photo">
+                <div>
+                    <h1 class="agent-name">Hadidja Abdrakhmaniva</h1>
+                    <p class="agent-title">Агент по недвижимости</p>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <a href="#about" class="nav-link" data-section="about">Обо мне</a>
+            <a href="#new-developments" class="nav-link" data-section="new-developments">Новостройки</a>
+            <a href="#resale-properties" class="nav-link" data-section="resale-properties">Вторичное жилье</a>
+            <a href="#contact" class="nav-link" data-section="contact">Контакты</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about">
+            <h2>Hadidja Abdrakhmaniva</h2>
+            <div class="about-content">
+                <img src="{% static 'img/agent_photo.jpg' %}" alt="Фото Усмана Халилова" class="about-agent-photo">
+                <div class="about-text">
+                    <p>Привет! Меня зовут Hadidja, и я ваш надежный партнер в мире недвижимости. Я помогаю клиентам найти дом мечты или выгодно продать свою собственность. Моя страсть к недвижимости и глубокое знание рынка позволяют мне находить лучшие решения даже в самых сложных ситуациях.</p>
+                    <p>Я уверена, что каждая сделка с недвижимостью — это не просто продажа или покупка квадратных метров, а важный этап в жизни человека. Моя цель — сделать этот процесс максимально комфортным, прозрачным и выгодным для вас.</p>
+                </div>
+                <ul class="advantages-list">
+                    <li>Глубокое знание рынка</li>
+                    <li>Индивидуальный подход</li>
+                    <li>Полное юридическое сопровождение</li>
+                    <li>Экономия вашего времени</li>
+                    <li>Доступность 24/7</li>
+                    <li>Широкая база объектов</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="new-developments">
+            <h2>Новостройки</h2>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    {% for property in new_developments %}
+                    <div class="swiper-slide">
+                        <div class="property-card">
+                            <img src="{{ property.main_photo.url }}" alt="{{ property.title }}">
+                            <h3>{{ property.rooms }}к. {{ property.title }}</h3>
+                            <p>{{ property.address }}</p>
+                            <p class="price">{{ property.price|floatformat:"0"|intcomma }} ₽</p>
+                            <button class="open-modal-btn" data-property-id="{{ property.id }}">Подробнее</button>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="swiper-slide">
+                        <p>Пока нет доступных новостроек.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </section>
+
+        <section id="resale-properties">
+            <h2>Вторичное жилье</h2>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    {% for property in resale_properties %}
+                    <div class="swiper-slide">
+                        <div class="property-card">
+                            <img src="{{ property.main_photo.url }}" alt="{{ property.title }}">
+                            <h3>{{ property.rooms }}к. {{ property.title }}</h3>
+                            <p>{{ property.address }}</p>
+                            <p class="price">{{ property.price|floatformat:"0"|intcomma }} ₽</p>
+                            <button class="open-modal-btn" data-property-id="{{ property.id }}">Подробнее</button>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="swiper-slide">
+                        <p>Пока нет доступных объектов вторичного жилья.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Связаться со мной</h2>
+            <p>Готова ответить на все ваши вопросы и помочь найти идеальную недвижимость.</p>
+            <div class="social-contacts">
+                <a href="tel:+79637080019">
+                    <i class="fas fa-phone"></i>
+                    <span>Позвонить</span>
+                </a>
+                <a href="https://wa.me/79891737375" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+                <a href="https://www.instagram.com/khad.i.djaa?igsh=eTkwd3A0Yzc1b211" target="_blank" rel="noopener noreferrer"> {# Добавляем Instagram вместо Email #}
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+            </div>
+            {# Здесь можно добавить форму обратной связи, если она у вас есть #}
+        </section>
+    </main>
+
+    <footer>
+    <p>&copy; 2024 Humy_Zero. Все права защищены.</p>
+    <p>Стремимся к совершенству в каждой детали.</p>
+    <p>
+        <a href="https://www.instagram.com/shishan_usman?igsh=czY2dGE3NTdtbDk5" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-instagram"></i> Мой Instagram
+        </a>
+    </p>
+    </footer>
+
+    <div id="propertyModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 id="modalTitle"></h3>
+            
+            <div class="modal-image-gallery swiper-container"> {# Добавляем класс swiper-container #}
+                <div class="swiper-wrapper" id="modalImageWrapper">
+                    </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+
+            <p id="modalDescription"></p>
+            <ul id="modalDetails">
+                </ul>
+            <p class="modal-total-price">Общая цена: <strong id="modalPrice"></strong> ₽</p>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        // JavaScript для смены класса хедера при скролле и активных ссылок навигации
+        const header = document.querySelector('header');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section');
+        let isSmoothScrolling = false; // Флаг для отслеживания плавного скролла
+
+        function handleScroll() {
+            if (isSmoothScrolling) return;
+
+            const scrollY = window.scrollY;
+            const headerHeight = header.offsetHeight; // Получаем текущую высоту хедера
+
+            if (scrollY > 50) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+
+            // Обновление активной ссылки навигации
+            let currentSectionId = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - headerHeight - 30; // Учитываем высоту хедера
+                const sectionBottom = sectionTop + section.offsetHeight;
+                if (scrollY >= sectionTop && scrollY < sectionBottom) {
+                    currentSectionId = section.id;
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.section === currentSectionId) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        // Вызываем функцию при загрузке страницы, чтобы установить начальное состояние
+        document.addEventListener('DOMContentLoaded', handleScroll);
+
+        // Плавный скролл при клике на ссылки навигации
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                isSmoothScrolling = true;
+                const targetId = this.dataset.section;
+                const targetSection = document.getElementById(targetId);
+                const headerHeight = header.offsetHeight;
+                const offset = 20; // Дополнительный отступ, чтобы секция не прилипала к хедеру
+                const targetPosition = targetSection.offsetTop - headerHeight - offset;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+
+                // Сброс флага после завершения анимации прокрутки
+                setTimeout(() => {
+                    isSmoothScrolling = false;
+                    handleScroll(); // Обновить активную ссылку после завершения скролла
+                }, 700); // Примерное время анимации скролла
+            });
+        });
+
+        const contactObjectBtn = document.querySelector('.contact-object-btn');
+        if (contactObjectBtn) {
+            contactObjectBtn.addEventListener('click', function() {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                    // Закрываем модальное окно перед прокруткой
+                    modal.classList.remove('show'); 
+
+                    isSmoothScrolling = true;
+                    const headerHeight = header.offsetHeight;
+                    const offset = 20;
+                    const targetPosition = contactSection.offsetTop - headerHeight - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    setTimeout(() => {
+                        isSmoothScrolling = false;
+                        handleScroll();
+                    }, 700);
+                }
+            });
+        }
+
+        // Swiper Initialization for carousels on the main page
+        document.addEventListener('DOMContentLoaded', function() {
+            new Swiper('#new-developments .swiper-container', {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                loop: false,
+                pagination: {
+                    el: '#new-developments .swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '#new-developments .swiper-button-next',
+                    prevEl: '#new-developments .swiper-button-prev',
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                    },
+                }
+            });
+
+            new Swiper('#resale-properties .swiper-container', {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                loop: false,
+                pagination: {
+                    el: '#resale-properties .swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '#resale-properties .swiper-button-next',
+                    prevEl: '#resale-properties .swiper-button-prev',
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                    },
+                }
+            });
+        });
+
+
+        // Модальное окно
+        const modal = document.getElementById('propertyModal');
+        const closeButton = document.querySelector('.close-button');
+        const openModalButtons = document.querySelectorAll('.open-modal-btn');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalDetails = document.getElementById('modalDetails');
+        const modalPrice = document.getElementById('modalPrice');
+        const modalImageWrapper = document.getElementById('modalImageWrapper');
+
+        let modalSwiper = null; // Переменная для хранения экземпляра Swiper для модального окна
+
+        // Функция для открытия модального окна
+        openModalButtons.forEach(button => {
+            button.addEventListener('click', async function() {
+                const propertyId = this.dataset.propertyId;
+                try {
+                    // Используем абсолютный путь к API
+                    const response = await fetch(`/api/property/${propertyId}/`);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const property = await response.json();
+                    
+                    // --- Заполнение данных модального окна ---
+                    modalTitle.textContent = `${property.rooms}к. ${property.title}`;
+                    modalDescription.textContent = property.description;
+                    modalPrice.textContent = `${property.price.toLocaleString('ru-RU')} ₽`;
+
+                    // Очищаем предыдущие детали
+                    modalDetails.innerHTML = '';
+                    const detailsMap = {
+                        'address': 'Адрес',
+                        'area': 'Площадь',
+                        'floor': 'Этаж',
+                        'total_floors': 'Этажность дома',
+                        'price_per_sqm': 'Цена за м²',
+                        'property_type_display': 'Тип недвижимости',
+                        'year_built': 'Год постройки',
+                        'developer': 'Застройщик',
+                        'completion_date': 'Срок сдачи',
+                        'balcony': 'Балкон/Лоджия',
+                        'parking': 'Парковка',
+                        'elevator': 'Лифт',
+                        'security': 'Охрана',
+                        'playground': 'Детская площадка',
+                        'school_nearby': 'Школа рядом',
+                        'kindergarten_nearby': 'Детский сад рядом',
+                        'metro_nearby': 'Метро рядом',
+                        'bus_stop_nearby': 'Остановка транспорта рядом',
+                        'swimming_pool': 'Бассейн',
+                        'gym': 'Тренажерный зал',
+                        'furnished': 'Меблирована',
+                        'renovation': 'Ремонт',
+                        'heating_type': 'Тип отопления',
+                        'sewage_type': 'Тип канализации',
+                        'water_supply_type': 'Тип водоснабжения',
+                        'gas_supply': 'Газоснабжение',
+                        'mortgage_possible': 'Возможна ипотека',
+                        'maternity_capital': 'Материнский капитал',
+                        'military_mortgage': 'Военная ипотека'
+                    };
+
+                    for (const key in detailsMap) {
+                        if (property.hasOwnProperty(key) && property[key] !== null && property[key] !== undefined && property[key] !== '') {
+                            let value = property[key];
+                            
+                            if (typeof value === 'boolean') {
+                                value = value ? 'Да' : 'Нет';
+                            }
+                            if (key === 'area') {
+                                value = `${value.toLocaleString('ru-RU')} м²`;
+                            }
+                            if (key === 'price_per_sqm') {
+                                value = `${value.toLocaleString('ru-RU', { maximumFractionDigits: 0 })} ₽`;
+                            }
+                            if (key === 'floor' && property['total_floors']) {
+                                value = `${property['floor']}/${property['total_floors']}`;
+                                continue;
+                            }
+                            if (key === 'total_floors') {
+                                continue;
+                            }
+                            if (key === 'completion_date' && value) {
+                                try {
+                                    const dateObj = new Date(value);
+                                    value = dateObj.toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' });
+                                } catch (e) {
+                                    // Если не удалось распарсить как дату, оставляем как есть
+                                }
+                            }
+                            if (key === 'price') {
+                                continue;
+                            }
+                            
+                            const listItem = document.createElement('li');
+                            listItem.textContent = `${detailsMap[key]}: ${value}`;
+                            modalDetails.appendChild(listItem);
+                        }
+                    }
+
+                    // Заполняем галерею изображений
+                    modalImageWrapper.innerHTML = ''; // Очищаем старые изображения
+                    // Добавляем главное фото первым
+                    if (property.main_photo) {
+                        const mainPhotoSlide = document.createElement('div');
+                        mainPhotoSlide.classList.add('swiper-slide');
+                        const mainImg = document.createElement('img');
+                        mainImg.src = property.main_photo;
+                        mainImg.alt = property.title + ' - Главное фото';
+                        mainPhotoSlide.appendChild(mainImg);
+                        modalImageWrapper.appendChild(mainPhotoSlide);
+                    }
+
+                    // Добавляем остальные фотографии галереи
+                    if (property.images && Array.isArray(property.images)) {
+                        property.images.forEach(image => {
+                            const swiperSlide = document.createElement('div');
+                            swiperSlide.classList.add('swiper-slide');
+                            const img = document.createElement('img');
+                            img.src = image.image_url;
+                            img.alt = image.description || property.title;
+                            swiperSlide.appendChild(img);
+                            modalImageWrapper.appendChild(swiperSlide);
+                        });
+                    }
+
+                    modal.classList.add('show'); // Показываем модальное окно
+                    document.body.classList.add('no-scroll'); // Запрещаем скролл основной страницы
+
+                    // Инициализируем Swiper для модального окна только после заполнения изображений
+                    // Уничтожаем предыдущий экземпляр, если он существует
+                    if (modalSwiper) {
+                        modalSwiper.destroy(true, true);
+                    }
+                    modalSwiper = new Swiper('.modal-image-gallery', {
+                        slidesPerView: 1,
+                        spaceBetween: 10,
+                        loop: true, // Галерея зациклена
+                        pagination: {
+                            el: '.modal-image-gallery .swiper-pagination',
+                            clickable: true,
+                        },
+                        navigation: {
+                            nextEl: '.modal-image-gallery .swiper-button-next',
+                            prevEl: '.modal-image-gallery .swiper-button-prev',
+                        },
+                        // Добавляем обработчик для открытия изображения в полноэкранном режиме
+                        on: {
+                            click: function(swiper, event) {
+                                if (event.target.tagName === 'IMG') {
+                                    openFullscreenImage(event.target.src);
+                                }
+                            }
+                        }
+                    });
+
+                } catch (error) {
+                    console.error('Ошибка при загрузке данных объекта:', error);
+                    alert('Не удалось загрузить информацию об объекте. Пожалуйста, попробуйте позже.');
+                }
+            });
+        });
+
+        // Функция для закрытия модального окна
+        closeButton.addEventListener('click', function() {
+            modal.classList.remove('show');
+            document.body.classList.remove('no-scroll'); // Разрешаем скролл основной страницы
+            // При закрытии модального окна, уничтожаем экземпляр Swiper, чтобы избежать конфликтов/утечек
+            if (modalSwiper) {
+                modalSwiper.destroy(true, true);
+                modalSwiper = null; // Обнуляем ссылку
+            }
+        });
+
+        // Закрытие модального окна при клике вне его контента
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.classList.remove('show');
+                document.body.classList.remove('no-scroll'); // Разрешаем скролл основной страницы
+                if (modalSwiper) {
+                    modalSwiper.destroy(true, true);
+                    modalSwiper = null;
+                }
+            }
+        });
+
+        // --- Функционал полноэкранного просмотра изображения ---
+        const fullscreenModal = document.createElement('div');
+        fullscreenModal.id = 'fullscreenImageModal';
+        fullscreenModal.innerHTML = `
+            <span class="fullscreen-close-button">&times;</span>
+            <div class="fullscreen-swiper-container">
+                <div class="swiper-wrapper" id="fullscreenImageWrapper">
+                    </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        `;
+        document.body.appendChild(fullscreenModal);
+
+        const fullscreenCloseButton = document.querySelector('.fullscreen-close-button');
+        const fullscreenImageWrapper = document.getElementById('fullscreenImageWrapper');
+        let fullscreenSwiper = null;
+
+        function openFullscreenImage(clickedImageSrc) {
+            const allImages = Array.from(modalImageWrapper.querySelectorAll('img')).map(img => img.src);
+            fullscreenImageWrapper.innerHTML = ''; // Очищаем предыдущие изображения
+
+            allImages.forEach(src => {
+                const slide = document.createElement('div');
+                slide.classList.add('swiper-slide');
+                const img = document.createElement('img');
+                img.src = src;
+                slide.appendChild(img);
+                fullscreenImageWrapper.appendChild(slide);
+            });
+
+            // Инициализируем Swiper для полноэкранного режима
+            if (fullscreenSwiper) {
+                fullscreenSwiper.destroy(true, true);
+            }
+            fullscreenSwiper = new Swiper('.fullscreen-swiper-container', {
+                slidesPerView: 1,
+                spaceBetween: 0,
+                loop: true,
+                navigation: {
+                    nextEl: '.fullscreen-swiper-container .swiper-button-next',
+                    prevEl: '.fullscreen-swiper-container .swiper-button-prev',
+                },
+            });
+
+            // Находим индекс кликнутого изображения и переходим к нему
+            const initialSlideIndex = allImages.findIndex(src => src === clickedImageSrc);
+            if (initialSlideIndex !== -1) {
+                fullscreenSwiper.slideToLoop(initialSlideIndex); // slideToLoop для loop-режима
+            }
+            
+            fullscreenModal.classList.add('show');
+            document.body.classList.add('no-scroll'); // Чтобы страница под модальным окном не прокручивалась
+        }
+
+        fullscreenCloseButton.addEventListener('click', function() {
+            fullscreenModal.classList.remove('show');
+            document.body.classList.remove('no-scroll');
+            if (fullscreenSwiper) {
+                fullscreenSwiper.destroy(true, true);
+                fullscreenSwiper = null;
+            }
+        });
+
+        // Закрытие полноэкранного режима при клике вне содержимого
+        fullscreenModal.addEventListener('click', function(event) {
+            // Убедимся, что клик был именно по фону модального окна, а не по изображению или кнопкам Swiper
+            if (event.target === fullscreenModal || event.target === fullscreenCloseButton || 
+                event.target.classList.contains('fullscreen-swiper-container') || 
+                event.target.classList.contains('swiper-wrapper')) { // Добавлено для надежности
+                fullscreenModal.classList.remove('show');
+                document.body.classList.remove('no-scroll');
+                if (fullscreenSwiper) {
+                    fullscreenSwiper.destroy(true, true);
+                    fullscreenSwiper = null;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
